@@ -12,13 +12,13 @@ const contacts: Contact[] = [
   { id: 1, name: 'Mayke', status: 'Disponível' },
   { id: 2, name: 'Igor', status: 'Ocupado' },
   { id: 3, name: 'Luis', status: 'Offline' },
-  // Adicione mais contatos conforme necessário
+ 
 ];
 
 const ContactList: React.FC = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Contatos</Text>
+      <Text style={styles.title}>Mensagens</Text>
       {contacts.map((contact) => (
         <TouchableOpacity key={contact.id} style={styles.contactContainer}>
           <View style={styles.contact}>
