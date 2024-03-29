@@ -1,73 +1,82 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 interface Contact {
+  id: number;
   name: string;
-  email: string;
-  phone: string;
+  status: string;
 }
 
-const ContactForm: React.FC = () => {
-  const [contact, setContact] = useState<Contact>({
-    name: '',
-    email: '',
-    phone: '',
-  });
+const contacts: Contact[] = [
+  { id: 1, name: 'Mayke', status: 'Disponível' },
+  { id: 2, name: 'Igor', status: 'Ocupado' },
+  { id: 3, name: 'Luis', status: 'Offline' },
+ 
+];
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const { name, value } = e.target;
-    setContact((prevContact) => ({
-      ...prevContact,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
-    e.preventDefault();
-    console.log('Contact submitted:', contact);
-    // Aqui você pode enviar os dados para o backend ou fazer o que desejar com eles
-  };
-
+const ContactList: React.FC = () => {
   return (
-    <div>
-      <h2>Contact Form</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">Name:</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={contact.name}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={contact.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="phone">Phone:</label>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            value={contact.phone}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+    <View style={styles.container}>
+      <Text style={styles.title}>Mensagens</Text>
+      {contacts.map((contact) => (
+        <TouchableOpacity key={contact.id} style={styles.contactContainer}>
+          <View style={styles.contact}>
+            <Text style={styles.contactName}>
+              <Ionicons name="person" size={24} color="#400096" style={{ marginRight: 10 }} />
+              {contact.name}
+            </Text>
+            <Text style={styles.contactStatus}>{contact.status}</Text>
+          </View>
+        </TouchableOpacity>
+      ))}
+    </View>
   );
 };
 
-export default ContactForm;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#d4d7ff',
+    paddingHorizontal: 20,
+    paddingTop: 40,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#400096',
+    marginBottom: 20,
+  },
+  contactContainer: {
+    marginBottom: 15,
+    borderRadius: 10,
+    backgroundColor: '#fff',
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
+  contact: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 15,
+  },
+  contactName: {
+    fontSize: 18,
+    color: '#21212f',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  contactStatus: {
+    fontSize: 16,
+    color: '#555',
+  },
+});
+
+export default ContactList;
+
