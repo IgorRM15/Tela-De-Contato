@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 interface Contact {
@@ -12,12 +12,15 @@ const contacts: Contact[] = [
   { id: 1, name: 'Mayke', status: 'Disponível' },
   { id: 2, name: 'Igor', status: 'Ocupado' },
   { id: 3, name: 'Luis', status: 'Offline' },
- 
+  { id: 4, name: 'Jhonas', status: 'Offline' },
+  { id: 5, name: 'Joao', status: 'Offline' },
+  { id: 6, name: 'Henry', status: 'Offline' },
+  { id: 7, name: 'Jonathan', status: 'Offline' },
 ];
 
 const ContactList: React.FC = () => {
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Mensagens</Text>
       {contacts.map((contact) => (
         <TouchableOpacity key={contact.id} style={styles.contactContainer}>
@@ -30,16 +33,17 @@ const ContactList: React.FC = () => {
           </View>
         </TouchableOpacity>
       ))}
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#d4d7ff',
+    flexGrow: 1,
+    backgroundColor: '#f0f0f0',
     paddingHorizontal: 20,
     paddingTop: 40,
+    paddingBottom: 20,
   },
   title: {
     fontSize: 24,
@@ -69,8 +73,6 @@ const styles = StyleSheet.create({
   contactName: {
     fontSize: 18,
     color: '#21212f',
-    flexDirection: 'row',
-    alignItems: 'center',
   },
   contactStatus: {
     fontSize: 16,
@@ -79,4 +81,3 @@ const styles = StyleSheet.create({
 });
 
 export default ContactList;
-
